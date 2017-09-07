@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.capgemini.lostAndFoundDB.enums.ItemSize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Item extends AbstractEntity {
@@ -52,6 +53,8 @@ public class Item extends AbstractEntity {
 	@Column
 	private String photoURL;
 	
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Request.class)
+	@JsonIgnore
 	@OneToMany (mappedBy = "item", cascade = CascadeType.REMOVE)
 	private List<Request> resquests;
 

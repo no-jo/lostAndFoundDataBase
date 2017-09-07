@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 import com.capgemini.lostAndFoundDB.enums.IsActive;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User extends AbstractEntity {
@@ -35,6 +36,7 @@ public class User extends AbstractEntity {
 	@Enumerated (EnumType.STRING)
 	private IsActive activity;
 	
+	@JsonIgnore
 	@OneToMany (mappedBy = "user", cascade = CascadeType.REMOVE)
 	private List<Request> requests;
 
