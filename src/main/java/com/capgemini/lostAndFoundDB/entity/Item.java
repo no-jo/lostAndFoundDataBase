@@ -25,11 +25,11 @@ public class Item extends AbstractEntity {
 
 	@Column
 	@Temporal (TemporalType.DATE)
-	private Date dateLost;
+	private Date lostDate;
 	
 	@Column
 	@Temporal (TemporalType.DATE)
-	private Date dateFound;
+	private Date foundDate;
 	
 	@Column (length = 30)
 	private String name;
@@ -59,19 +59,19 @@ public class Item extends AbstractEntity {
 	private List<Request> resquests;
 
 	public Date getDateLost() {
-		return dateLost;
+		return lostDate;
 	}
 
 	public void setDateLost(Date dateLost) {
-		this.dateLost = dateLost;
+		this.lostDate = dateLost;
 	}
 
 	public Date getDateFound() {
-		return dateFound;
+		return foundDate;
 	}
 
 	public void setDateFound(Date dateFound) {
-		this.dateFound = dateFound;
+		this.foundDate = dateFound;
 	}
 
 	public String getName() {

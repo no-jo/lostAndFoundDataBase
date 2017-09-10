@@ -8,7 +8,7 @@ public class GeneralController {
 	
 	@RequestMapping("/test")
 	public String test () {
-		return "test";
+		return "a test to see if we are getting something";
 	}
 
 }
