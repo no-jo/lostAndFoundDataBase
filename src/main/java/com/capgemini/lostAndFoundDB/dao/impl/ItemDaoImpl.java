@@ -32,8 +32,16 @@ public class ItemDaoImpl extends AbstractDao<Item, Long> implements ItemDao {
 
 	@Override
 	public List<Item> findBySearchCriteria(ItemSearchCriteria cond) {
-		// TODO create method when filtering is done via backend, for now return all
-		return findAll();
+		QItem item = QItem.item;
+		JPAQuery<Item> query = new JPAQuery<Item>(entityManager)
+				.from(item).where(item.isActive.eq(IsActive.ACTIVE));
+		if (null != cond.getNameLike()) {
+			query.where(item.name.like('%'+cond.getNameLike()+'%'));
+		}
+		if (null != cond.getLostDateAfter()) {
+			query.where(item.lostDate.after(cond.getLostDateAfter()));
+		}
+		return query.fetch();
 	}
 
 }
