@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.lostAndFoundDB.dao.ItemDao;
 import com.capgemini.lostAndFoundDB.data.ItemSearchCriteria;
 import com.capgemini.lostAndFoundDB.entity.Item;
+import com.capgemini.lostAndFoundDB.enums.IsActive;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -51,6 +52,13 @@ public class ItemController {
 	
 	@RequestMapping(path = "/id", method = RequestMethod.POST)
 	public Item updateItem(@RequestBody Item updatedItem) {
+		return itemDao.update(updatedItem);
+	}
+	
+	@RequestMapping(path = "/id", method = RequestMethod.DELETE)
+	public Item deleteItem(@RequestParam("id") Long id) {
+		Item updatedItem = itemDao.findOne(id);
+		updatedItem.setIsActive(IsActive.INACTIVE);
 		return itemDao.update(updatedItem);
 	}
 }

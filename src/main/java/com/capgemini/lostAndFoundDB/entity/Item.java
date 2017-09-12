@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.capgemini.lostAndFoundDB.enums.IsActive;
 import com.capgemini.lostAndFoundDB.enums.ItemSize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,6 +53,10 @@ public class Item extends AbstractEntity {
 	
 	@Column
 	private String photoURL;
+	
+	@Column
+	@Enumerated (EnumType.STRING)
+	private IsActive isActive;
 	
 	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Request.class)
 	@JsonIgnore
@@ -136,5 +141,29 @@ public class Item extends AbstractEntity {
 
 	public void setResquests(List<Request> resquests) {
 		this.resquests = resquests;
+	}
+
+	public Date getLostDate() {
+		return lostDate;
+	}
+
+	public void setLostDate(Date lostDate) {
+		this.lostDate = lostDate;
+	}
+
+	public Date getFoundDate() {
+		return foundDate;
+	}
+
+	public void setFoundDate(Date foundDate) {
+		this.foundDate = foundDate;
+	}
+
+	public IsActive getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(IsActive isActive) {
+		this.isActive = isActive;
 	}
 }
