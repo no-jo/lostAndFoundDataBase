@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.lostAndFoundDB.dao.UserDao;
 import com.capgemini.lostAndFoundDB.entity.User;
+import com.capgemini.lostAndFoundDB.enums.IsActive;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -25,7 +26,12 @@ public class UserController {
 		
 		@RequestMapping(path = "/", method = RequestMethod.GET)
 		public List<User> getAllUsers() {
-			return userDao.findAll();
+			return userDao.findAllActive();
+		}
+		
+		@RequestMapping(path = "/", method = RequestMethod.POST)
+		public List<User> getUsersByKey(@RequestBody User search) {
+			return userDao.findUsersByKey(search);
 		}
 		
 		@RequestMapping(path = "/id", method = RequestMethod.GET)
@@ -35,11 +41,19 @@ public class UserController {
 
 		@RequestMapping(path = "/id", method = RequestMethod.PUT)
 		public User addUser(@RequestBody User newUser) {
+			newUser.setActivity(IsActive.ACTIVE);
 			return userDao.save(newUser);
 		}
 		
 		@RequestMapping(path = "/id", method = RequestMethod.POST)
 		public User updateUser(@RequestBody User updatedUser) {
+			return userDao.update(updatedUser);
+		}
+		
+		@RequestMapping(path = "/id", method = RequestMethod.DELETE)
+		public User deleteUser(@RequestParam("id") Long id) {
+			User updatedUser = userDao.findOne(id);
+			updatedUser.setActivity(IsActive.INACTIVE);
 			return userDao.update(updatedUser);
 		}
 }

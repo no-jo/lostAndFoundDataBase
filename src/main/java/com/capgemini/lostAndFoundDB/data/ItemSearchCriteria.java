@@ -8,13 +8,12 @@ import com.capgemini.lostAndFoundDB.enums.Status;
 
 public class ItemSearchCriteria {
 	private Long idIs = null;
+	private Boolean seekLost = null;
 	private String nameLike = null;
 	private Date lostDateAfter = null;
 	private Date lostDateBefore = null;
-	private Date lostDateIs = null;
 	private Date foundDateAfter = null;
 	private Date foundDateBefore = null;
-	private Date foundDateIs = null;
 	private Date creationDateAfter = null;
 	private Date creationDateBefore = null;
 	private ItemSize sizeIs = null;
@@ -107,16 +106,10 @@ public class ItemSearchCriteria {
 	public void setMaterialLike(String materialLike) {
 		this.materialLike = materialLike;
 	}
-	public Date getLostDateIs() {
-		return lostDateIs;
+	public Boolean getSeekLost() {
+		return seekLost;
 	}
-	public void setLostDateIs(Date lostDateIs) {
-		this.lostDateIs = lostDateIs;
-	}
-	public Date getFoundDateIs() {
-		return foundDateIs;
-	}
-	public void setFoundDateIs(Date foundDateIs) {
-		this.foundDateIs = foundDateIs;
+	public void setSeekLost(Boolean seekLost) {
+		this.seekLost = seekLost;
 	}
 }

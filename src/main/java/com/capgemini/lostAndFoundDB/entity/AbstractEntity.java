@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +22,7 @@ public abstract class AbstractEntity implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@Column(name = "creation_date", columnDefinition = "timestamp default current_timestamp")
+	@Column(name = "creation_date", columnDefinition = "timestamp default current_timestamp", updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
@@ -36,6 +37,11 @@ public abstract class AbstractEntity implements Serializable {
 	@PreUpdate
 	protected void updateModificationDate() {
 		modificationDate = new Date(System.currentTimeMillis());
+	}
+	
+	@PrePersist
+	protected void setCreationDate() {
+		creationDate = new Date(System.currentTimeMillis());
 	}
 
 	public Long getId() {

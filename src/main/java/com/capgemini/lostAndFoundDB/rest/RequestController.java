@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.lostAndFoundDB.dao.RequestDao;
 import com.capgemini.lostAndFoundDB.entity.Request;
+import com.capgemini.lostAndFoundDB.enums.Status;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -40,6 +41,13 @@ public class RequestController {
 		
 		@RequestMapping(path = "/id", method = RequestMethod.POST)
 		public Request updateRequest(@RequestBody Request updatedRequest) {
+			return requestDao.update(updatedRequest);
+		}
+		
+		@RequestMapping(path = "/id", method = RequestMethod.DELETE)
+		public Request deleteItem(@RequestParam("id") Long id) {
+			Request updatedRequest = requestDao.findOne(id);
+			updatedRequest.setStatus(Status.INACTIVE);
 			return requestDao.update(updatedRequest);
 		}
 }

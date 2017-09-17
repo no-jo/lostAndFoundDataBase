@@ -35,7 +35,7 @@ public class Item extends AbstractEntity {
 	@Column (length = 30)
 	private String name;
 	
-	@Column
+	@Column (length = 500)
 	private String description;
 	
 	@Column
@@ -51,7 +51,7 @@ public class Item extends AbstractEntity {
 	@Column
 	private String category;
 	
-	@Column
+	@Column (length = 400)
 	private String photoURL;
 	
 	@Column
