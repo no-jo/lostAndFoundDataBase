@@ -11,4 +11,5 @@ public interface ItemDao extends Dao<Item, Long> {
 	List<Item> findAllLost();
 	
 	List<Item> findBySearchCriteria(ItemSearchCriteria cond);
+	List<Item> getWishlistByUser(Long userId);
 }

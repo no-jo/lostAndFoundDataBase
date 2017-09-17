@@ -8,6 +8,7 @@ import com.capgemini.lostAndFoundDB.dao.ItemDao;
 import com.capgemini.lostAndFoundDB.data.ItemSearchCriteria;
 import com.capgemini.lostAndFoundDB.entity.Item;
 import com.capgemini.lostAndFoundDB.entity.QItem;
+import com.capgemini.lostAndFoundDB.entity.QRequest;
 import com.capgemini.lostAndFoundDB.enums.IsActive;
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -73,6 +74,14 @@ public class ItemDaoImpl extends AbstractDao<Item, Long> implements ItemDao {
 		if (null != cond.getSizeIs()) {
 			query.where(item.size.eq(cond.getSizeIs()));
 		}
+		return query.fetch();
+	}
+
+	@Override
+	public List<Item> getWishlistByUser(Long userId) {
+		QRequest request = QRequest.request;
+		JPAQuery<Item> query = new JPAQuery<Item>(entityManager);		
+		query.select(request.item).from(request).where(request.user.id.eq(userId));
 		return query.fetch();
 	}
 

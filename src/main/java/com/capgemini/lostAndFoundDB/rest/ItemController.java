@@ -61,4 +61,9 @@ public class ItemController {
 		updatedItem.setIsActive(IsActive.INACTIVE);
 		return itemDao.update(updatedItem);
 	}
+	
+	@RequestMapping(path = "/user", method = RequestMethod.GET)
+	public List<Item> getItemsByUser(@RequestParam("id") Long userId) {
+		return itemDao.getWishlistByUser(userId);
+	}
 }
