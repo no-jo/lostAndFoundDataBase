@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.lostAndFoundDB.entity.QRequest;
 import com.capgemini.lostAndFoundDB.entity.QUser;
 import com.capgemini.lostAndFoundDB.entity.User;
 import com.capgemini.lostAndFoundDB.enums.IsActive;
+import com.capgemini.lostAndFoundDB.enums.Status;
 import com.querydsl.jpa.impl.JPAQuery;
 
 @Repository
-public class UserDao extends AbstractDao<User, Long> implements com.capgemini.lostAndFoundDB.dao.UserDao {
+public class UserDaoImpl extends AbstractDao<User, Long> implements com.capgemini.lostAndFoundDB.dao.UserDao {
 
 	@Override
 	public List<User> findAllActive() {
@@ -38,4 +40,14 @@ public class UserDao extends AbstractDao<User, Long> implements com.capgemini.lo
 		}
 		return query.fetch();
 	}
+	
+	@Override
+		public List<User> getQueueByItem(Long itemid) {
+		QRequest request = QRequest.request;
+		JPAQuery<User> query = new JPAQuery<User>(entityManager);		
+		query.select(request.user).from(request).where(request.item.id.eq(itemid)
+				.and(request.status.eq(Status.PENDING))).orderBy(request.creationDate.desc());
+		return query.fetch();
+	}
+
 }

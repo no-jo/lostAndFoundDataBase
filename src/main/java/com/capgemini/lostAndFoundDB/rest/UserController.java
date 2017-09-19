@@ -56,4 +56,9 @@ public class UserController {
 			updatedUser.setActivity(IsActive.INACTIVE);
 			return userDao.update(updatedUser);
 		}
+		
+		@RequestMapping(path = "/item", method = RequestMethod.GET)
+		public List<User> getUsersByItem(@RequestParam("id") Long itemid) {
+			return userDao.getQueueByItem(itemid);
+		}
 }

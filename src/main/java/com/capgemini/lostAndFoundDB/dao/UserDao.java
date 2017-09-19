@@ -10,4 +10,6 @@ public interface UserDao extends Dao<User, Long> {
 
 	List<User> findUsersByKey(User searchKey);
 
+	List<User> getQueueByItem(Long itemid);
+
 }

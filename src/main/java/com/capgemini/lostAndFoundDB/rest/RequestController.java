@@ -36,6 +36,7 @@ public class RequestController {
 
 		@RequestMapping(path = "/id", method = RequestMethod.PUT)
 		public Request addRequest(@RequestBody Request newRequest) {
+			newRequest.setStatus(Status.PENDING);
 			return requestDao.save(newRequest);
 		}
 		
@@ -49,5 +50,10 @@ public class RequestController {
 			Request updatedRequest = requestDao.findOne(id);
 			updatedRequest.setStatus(Status.INACTIVE);
 			return requestDao.update(updatedRequest);
+		}
+		
+		@RequestMapping(path = "/user", method = RequestMethod.GET)
+		public List<Request> getRequestsByUser(@RequestParam("id") Long userId) {
+			return requestDao.getWishlist(userId);
 		}
 }
